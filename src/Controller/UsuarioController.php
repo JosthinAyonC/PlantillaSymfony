@@ -49,9 +49,14 @@ class UsuarioController extends AbstractController
     #[Route('/{idUsuario}', name: 'app_usuario_show', methods: ['GET'])]
     public function show(Usuario $usuario): Response
     {
-        return $this->render('usuario/show.html.twig', [
-            'usuario' => $usuario,
-        ]);
+        if (!$usuario->getEstado()==='A'){
+            return $this->render('usuario/404.html.twig');
+        }else{
+            return $this->render('usuario/show.html.twig', [
+                'usuario' => $usuario,
+            ]);
+        }
+        
     }
 
     #[Route('/{idUsuario}/edit', name: 'app_usuario_edit', methods: ['GET', 'POST'])]
