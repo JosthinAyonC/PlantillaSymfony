@@ -59,14 +59,19 @@
                     <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>Aplication</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
+                    
+                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                     <div class="position-relative">
-                        <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                        {# <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;"> #}
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
-                    <div class="ms-3">
-                        <h6 class="mb-0">USUARIO</h6>
-                        <span>ROLE</span>
+                        <div class="ms-3">
+                        <h6 class="mb-0">{{app.user.nombre}}</h6>
+                        <span>{{ app.user.roles |join(', ')  }}</span>
                     </div>
+                    
+                    {% endif %}
+                    
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="{{path('app_home') }}" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Home</a>
@@ -122,18 +127,12 @@
 
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <span class="d-none d-lg-inline-flex"> USUARIO</span>
+                            <span class="d-none d-lg-inline-flex"> {{ app.user.nombre }}<br> {{ app.user.apellido }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                             <a href="{{path('app_logout')}}" class="dropdown-item">Log Out</a>
                         </div>
                         
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-bell me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Notificatin</span>
-                        </a>
                     </div>
                     {% else %}
                     
@@ -141,7 +140,7 @@
                         <a href="{{path('app_register')}}" class="dropdown-item">Register</a>
                     </div>
                     <div class="nav-item dropdown">                        
-                        <a href="{{path('app_login')}}" class="dropdown-item">Inicia sesion</a>
+                        <a href="{{path('app_login')}}" class="dropdown-item">Inicia <br>sesion</a>
                     </div>
 
                     {% endif %}
