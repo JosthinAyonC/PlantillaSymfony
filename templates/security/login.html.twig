@@ -14,32 +14,44 @@
         </div>
     {% endif %}
 
-    <div id="contenedor">
-        <div id="central">
-            <div id="login">
-                <div class="titulo">
-                        Ingresa sesion
-                </div>
-                <form method="post" id="loginform">
-                    <input type="text" value="{{ last_username }}" name="correo" id="inputCorreo" class="form-control" placeholder="Correo" required autofocus>
-                        
-                    <input type="password" name="password" id="inputPassword" placeholder="Contraseña" class="form-control" autocomplete="current-password" required>
-                        
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-                    <button class="btn btn-lg btn-primary" type="submit" title="Ingresar" name="Ingresar">Login</button>
-
-                </form>
-                <div class="pie-form">
-                    <a href="#">¿Perdiste tu contraseña?</a>
-                    <a href="#">¿No tienes Cuenta? Registrate</a>
+    <div class="container-fluid">
+            <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
+                <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+                    <div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
+                    <form method="post" id="loginform">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <a href="index.html" class="">
+                                <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>AplicationName</h3>
+                            </a>
+                            <h3>Sign In</h3>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" value="{{ last_username }}" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput">Email</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" required>
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                            <label for="floatingPassword">Password</label>
+                        </div>
+                        
+                        {# <div class="d-flex align-items-center justify-content-between mb-4">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                            </div>
+                            <a href="">Forgot Password</a>
+                        </div> #}
+                        
+                        <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Sign In</button>
+                        <p class="text-center mb-0">Don't have an Account? <a href="{{path('app_register')}}">Sign Up</a></p>
+                        </form>
+                    </div>
                 </div>
-            </div>
-            <div class="inferior">
-                    <a href="#">Volver</a>
             </div>
         </div>
-    </div>
+    
     {#
         Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
         See https://symfony.com/doc/current/security/remember_me.html
