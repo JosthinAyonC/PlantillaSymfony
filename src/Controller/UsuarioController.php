@@ -18,7 +18,7 @@ class UsuarioController extends AbstractController
     {
         $usuarios = $entityManager
             ->getRepository(Usuario::class)
-            ->findAll();
+            ->findBy(['estado'=>'A']);
 
         return $this->render('usuario/index.html.twig', [
             'usuarios' => $usuarios,
@@ -34,6 +34,7 @@ class UsuarioController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($usuario);
+            $usuario->setEstado("A");
             $entityManager->flush();
 
             return $this->redirectToRoute('app_usuario_index', [], Response::HTTP_SEE_OTHER);
@@ -75,7 +76,7 @@ class UsuarioController extends AbstractController
     public function delete(Request $request, Usuario $usuario, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$usuario->getIdUsuario(), $request->request->get('_token'))) {
-            $entityManager->remove($usuario);
+            $usuario->setEstado("I");
             $entityManager->flush();
         }
 

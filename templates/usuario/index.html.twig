@@ -3,43 +3,54 @@
 {% block title %}Usuario index{% endblock %}
 
 {% block body %}
-    <h1>Usuario index</h1>
+<br>
+<div class="container-fluid">
+    <div class=class="row h-100 align-items-center justify-content-center">
+        <div class="bg-secondary rounded h-100 p-4">
+            <h6 class="mb-4">Usuarios Table</h6>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>IdUsuario</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Correo</th>
+                        <th>Clave</th>
+                        <th>Roles</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in usuarios %}
+                    <tr>
+                        <td>{{ usuario.idUsuario }}</td>
+                        <td>{{ usuario.nombre }}</td>
+                        <td>{{ usuario.apellido }}</td>
+                        <td>{{ usuario.correo }}</td>
+                        <td>{{ usuario.clave }}</td>
+                        <td>{{ usuario.roles ? usuario.roles|json_encode : '' }}</td>
+                        <td>
+                            <div class="bg-secondary rounded h-100 p-4">
+                                <a class="btn btn-primary m-2"
+                                    href="{{ path('app_usuario_show', {'idUsuario': usuario.idUsuario}) }}">show</a>
+                                <a class="btn btn-primary m-2"
+                                    href="{{ path('app_usuario_edit', {'idUsuario': usuario.idUsuario}) }}">edit</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="8">no records found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>IdUsuario</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Correo</th>
-                <th>Clave</th>
-                <th>Roles</th>
-                <th>Estado</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for usuario in usuarios %}
-            <tr>
-                <td>{{ usuario.idUsuario }}</td>
-                <td>{{ usuario.nombre }}</td>
-                <td>{{ usuario.apellido }}</td>
-                <td>{{ usuario.correo }}</td>
-                <td>{{ usuario.clave }}</td>
-                <td>{{ usuario.roles ? usuario.roles|json_encode : '' }}</td>
-                <td>{{ usuario.estado }}</td>
-                <td>
-                    <a href="{{ path('app_usuario_show', {'idUsuario': usuario.idUsuario}) }}">show</a>
-                    <a href="{{ path('app_usuario_edit', {'idUsuario': usuario.idUsuario}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </table>
+            <a href="{{ path('app_usuario_new') }}">Create new</a>
+        </div>
+    </div>
+</div>
 
-    <a href="{{ path('app_usuario_new') }}">Create new</a>
+
+
 {% endblock %}
