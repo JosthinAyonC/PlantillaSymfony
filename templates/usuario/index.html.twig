@@ -15,7 +15,6 @@
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>Correo</th>
-                        <th>Clave</th>
                         <th>Roles</th>
                         <th>actions</th>
                     </tr>
@@ -27,14 +26,15 @@
                         <td>{{ usuario.nombre }}</td>
                         <td>{{ usuario.apellido }}</td>
                         <td>{{ usuario.correo }}</td>
-                        <td>{{ usuario.clave }}</td>
                         <td>{{ usuario.roles ? usuario.roles|json_encode : '' }}</td>
                         <td>
                             <div class="bg-secondary rounded h-100 p-4">
+                                {% if is_granted("ROLE_ADMIN")%}
                                 <a class="btn btn-primary m-2"
-                                    href="{{ path('app_usuario_show', {'idUsuario': usuario.idUsuario}) }}">show</a>
+                                    href="{{ path('app_usuario_edit', {'idUsuario': usuario.idUsuario}) }}">Editar</a>
+                                {% endif %}
                                 <a class="btn btn-primary m-2"
-                                    href="{{ path('app_usuario_edit', {'idUsuario': usuario.idUsuario}) }}">edit</a>
+                                    href="{{ path('app_usuario_show', {'idUsuario': usuario.idUsuario}) }}">Vistazo</a>
                             </div>
                         </td>
                     </tr>
@@ -46,7 +46,7 @@
                 </tbody>
 
             </table>
-            <a href="{{ path('app_usuario_new') }}">Create new</a>
+            <a class="btn btn-primary m-2" href="{{ path('app_usuario_new') }}">Create new</a>
         </div>
     </div>
 </div>
