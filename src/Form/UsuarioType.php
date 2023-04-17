@@ -75,6 +75,13 @@ class UsuarioType extends AbstractType
                 'constraints' => [
                     new NotBlank(['message' => 'Seleccione al menos un rol.']),
                 ]])
+                ->add('estado', ChoiceType::class, [
+                    'choices' => [
+                        'Activo' => 'A',
+                        'Inactivo' => 'I',                    
+                    ], 
+                    'expanded' => true
+                    ])
 
         ;
     }

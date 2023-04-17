@@ -11,6 +11,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * @ORM\Table(name="usuario", uniqueConstraints={@ORM\UniqueConstraint(name="usuario_correo_key", columns={"correo"})})
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\UsuarioRepository")
  */
 class Usuario  implements UserInterface, PasswordAuthenticatedUserInterface
 {

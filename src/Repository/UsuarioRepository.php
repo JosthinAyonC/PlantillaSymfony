@@ -42,17 +42,15 @@ class UsuarioRepository extends ServiceEntityRepository
 //    /**
 //     * @return Usuario[] Returns an array of Usuario objects
 //     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('u.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+   public function buscarUsuario()
+   {
+       return $this->createQueryBuilder('u')
+           ->andWhere('u.estado != :estado')
+           ->setParameter('estado', 'N')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
 
 //    public function findOneBySomeField($value): ?Usuario
 //    {

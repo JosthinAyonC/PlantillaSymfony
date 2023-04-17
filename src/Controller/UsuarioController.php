@@ -20,7 +20,7 @@ class UsuarioController extends AbstractController
         if ($this->isGranted('ROLE_ADMIN')) {
             $usuarios = $entityManager
                 ->getRepository(Usuario::class)
-                ->findBy(['estado' => 'A']);
+                ->buscarUsuario();
 
             return $this->render('usuario/index.html.twig', [
                 'usuarios' => $usuarios,
@@ -43,12 +43,14 @@ class UsuarioController extends AbstractController
                 $usuario->setClave(
                     $userPasswordHasher->hashPassword(
                         $usuario,
-                        $form->get('clave')->getData()
+                        $form->get('plainPassword')->getData()
                     )
                 );
                 $roles = $form->get('roles')->getData();
                 $usuario->setRoles([$roles]);
                 $usuario->setEstado("A");
+                $estado = $form->get('estado')->getData();
+                $usuario->setEstado($estado);
 
                 $entityManager->persist($usuario);
                 $entityManager->flush();
@@ -67,7 +69,7 @@ class UsuarioController extends AbstractController
     #[Route('/{idUsuario}', name: 'app_usuario_show', methods: ['GET'])]
     public function show(Usuario $usuario): Response
     {
-        if (!$usuario->getEstado() === 'A') {
+        if (!$usuario->getEstado() === 'A' || !$usuario->getEstado() === 'I') {
             return $this->render('usuario/404.html.twig');
         } else {
             return $this->render('usuario/show.html.twig', [
@@ -87,6 +89,8 @@ class UsuarioController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $roles = $form->get('roles')->getData();
                 $usuario->setRoles([$roles]);
+                $estado = $form->get('estado')->getData();
+                $usuario->setEstado($estado);
                 $entityManager->flush();
 
                 return $this->redirectToRoute('app_usuario_index', [], Response::HTTP_SEE_OTHER);
@@ -106,7 +110,7 @@ class UsuarioController extends AbstractController
     {
         if ($this->isGranted('ROLE_ADMIN')) {
             if ($this->isCsrfTokenValid('delete' . $usuario->getIdUsuario(), $request->request->get('_token'))) {
-                $usuario->setEstado("I");
+                $usuario->setEstado("A");
                 $entityManager->flush();
             }
 

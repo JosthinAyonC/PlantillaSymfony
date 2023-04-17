@@ -16,6 +16,7 @@
                         <th>Apellido</th>
                         <th>Correo</th>
                         <th>Roles</th>
+                        <th>Estado</th>
                         <th>actions</th>
                     </tr>
                 </thead>
@@ -23,10 +24,13 @@
                     {% for usuario in usuarios %}
                     <tr>
                         <td>{{ usuario.idUsuario }}</td>
-                        <td>{{ usuario.nombre }}</td>
+                        <td >{{ usuario.nombre }}</td>
                         <td>{{ usuario.apellido }}</td>
                         <td>{{ usuario.correo }}</td>
                         <td>{{ usuario.roles ? usuario.roles|json_encode : '' }}</td>
+                        <td>
+                            {{ usuario.estado == 'A' ? 'Activo' : 'Inactivo'}}
+                        </td>
                         <td>
                             <div class="bg-secondary rounded h-100 p-4">
                                 {% if is_granted("ROLE_ADMIN")%}
