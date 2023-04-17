@@ -3,13 +3,13 @@
 {% block title %}Usuario{% endblock %}
 
 {% block body %}
-    <h1>Usuario</h1>
-
-    <br>
+<br>
 <div class="container-fluid">
-    <div class=class="row h-100 align-items-center justify-content-center">
+    
+    <div class="row h-100 align-items-center justify-content-center">
         <div class="bg-secondary rounded h-100 p-4">
-            <h6 class="mb-4">Basic Table</h6>
+            <h2 class="mb-4">Vistazo de usuario</h2>
+
             <table class="table">
                 <!-- //CODIGO AQUI -->
 
@@ -45,16 +45,19 @@
                 </tbody>
 
                 <!-- SHOW/EDIT -->
-                
+
             </table>
+            <a class="btn btn-primary m-2" href="{{ path('app_usuario_index') }}">Volver</a>
+
+            <a class="btn btn-primary m-2"
+                href="{{ path('app_usuario_edit', {'idUsuario': usuario.idUsuario}) }}">Editar</a>
+
+
+
+
+
+            {{ include('usuario/_delete_form.html.twig') }}
         </div>
     </div>
 </div>
-
-
-    <a class="btn btn-primary m-2" href="{{ path('app_usuario_index') }}">back to list</a>
-
-    <a class="btn btn-primary m-2" href="{{ path('app_usuario_edit', {'idUsuario': usuario.idUsuario}) }}">edit</a>
-
-    {{ include('usuario/_delete_form.html.twig') }}
 {% endblock %}
